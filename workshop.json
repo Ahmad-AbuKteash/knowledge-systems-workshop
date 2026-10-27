@@ -5,6 +5,9 @@
   "top_k": 5,
   "max_chunk_characters": 2000,
   "max_chunks_per_source": 500,
+  "utility_commands": [
+    {"name": "submit-source", "guide": "instructions/submit-source.md"}
+  ],
   "commands": [
     {"name": "collect", "guide": "steps/01-prepare-knowledge/01-collect.md"},
     {"name": "extract", "guide": "steps/01-prepare-knowledge/02-extract.md"},

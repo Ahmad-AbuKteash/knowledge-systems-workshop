@@ -3,6 +3,13 @@
 Each participant works on one assigned source in their own clone of this repository.
 You do not need the private application repository, Java, Node, or Docker.
 
+Current first session: `workshop/session-01`. The trainer may supply a different
+`workshop/<session-name>` for later events. Development stays on main.
+
+After completing the eleven steps, use `$submit-source source-01` in Codex or
+`/submit-source source-01` in Claude Code / Copilot. The skill handles export,
+a scoped commit, syncing, and direct push. The manual equivalent follows below.
+
 1. Clone the workshop repository using the URL and workshop branch supplied by the trainer:
    `git clone --branch <workshop-branch> <workshop-repository-url>`.
 2. Open the cloned folder and follow PREPARATION.md. Stay on the shared workshop
@@ -45,8 +52,9 @@ Before the workshop, give participants repository write access and use a dedicat
 workshop branch that permits direct pushes without requiring PRs. Keep normal
 protections on other branches. Assign a unique source folder to each participant.
 
-On the demo computer, check out that same workshop branch in
-`knowledge-systems-workshop/`, then run `git pull --ff-only`. The app mounts
+On the demo computer, run `$update-studio` or `/update-studio` from the private app
+or parent workspace. It fast-forwards the selected session's dedicated
+`.workshop-live/` checkout while `knowledge-systems-workshop/` stays on main. The app mounts
 `submissions/` read-only and reloads it for each tool call. Refresh the source list
 in the chat. No merged SQLite database or re-embedding is needed: the MCP service
 searches the exported vectors across submitted bundles and preserves source IDs.

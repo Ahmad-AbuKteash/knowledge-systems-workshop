@@ -79,6 +79,10 @@ folder and commit only that source's submission. Follow [CONTRIBUTING.md](CONTRI
 for export, commit, direct push to the shared workshop branch, and instructor pull.
 No pull request or PR review is required.
 
+Submission command after the eleven steps: **`$submit-source source-01`** in Codex,
+or **`/submit-source source-01`** in Claude Code / Copilot. It refuses to push to main.
+The initial shared branch is `workshop/session-01`; follow the trainer's session assignment.
+
 ```text
 workspace/source-01/
   collected/    extracted/    cleaned/       structured/

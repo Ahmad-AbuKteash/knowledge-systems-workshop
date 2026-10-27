@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def expected_files():
     config = json.loads((ROOT / "workshop.json").read_text(encoding="utf-8"))
-    for command in config["commands"]:
+    for command in config["commands"] + config.get("utility_commands", []):
         name, guide = command["name"], command["guide"]
         if not (ROOT / guide).is_file():
             raise ValueError(f"Missing guide: {guide}")
@@ -25,6 +25,15 @@ Apply the guide to only that source. Save files only under workspace/<source>/.
 Check prerequisites; if missing, explain and stop instead of doing earlier steps.
 Perform only this step. End with output locations, validation results, and a
 participant inspection checklist. Do not start the next step automatically.
+"""
+        if command in config.get("utility_commands", []):
+            description = f"Submit one completed workshop source to the current shared workshop branch when explicitly requested."
+            body = f"""# Workshop utility: {name}
+
+Read {guide} in this repository and follow it for the participant's source.
+Be verbose: explain the target branch, files, Git operations, and actual result.
+This is a submission utility, not another ingestion step. Do not complete missing
+exercises. Invoking it requests export, a scoped commit, and direct push without a PR.
 """
         front = f"---\nname: {name}\ndescription: {description}\n"
         yield f".agents/skills/{name}/SKILL.md", front + "---\n\n" + body
@@ -48,7 +57,7 @@ def main():
             path.write_text(content, encoding="utf-8")
     if mismatches:
         raise SystemExit("Outdated command adapters: " + ", ".join(mismatches))
-    print("Command adapters verified." if args.check else "Generated 11 commands for three environments.")
+    print("Command adapters verified." if args.check else "Generated lab and utility adapters for three environments.")
 
 
 if __name__ == "__main__":
