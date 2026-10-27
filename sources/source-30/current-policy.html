@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Nimbus API key lifecycle and rotation</title><style>body{font:16px/1.6 Arial,sans-serif;max-width:900px;margin:36px auto;padding:0 24px;color:#173b50}nav,footer{padding:12px;background:#edf3f5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #b8cbd0;padding:9px;text-align:left;vertical-align:top}h2{color:#176b74}</style></head><body>
+<nav>Nimbus intranet | Policies | Directory | Search</nav>
+<main><h1>Nimbus API key lifecycle and rotation</h1>
+<p>Version: 2026.2. Effective date: 2026-09-01. Owner: Developer Platform and Security.</p>
+<p>Access scope: workshop-public. Supersedes previous-policy.md.</p>
+<h2>Applicability</h2>
+<p>Customer-managed Nimbus API keys; workforce login follows source-12 and webhook secrets follow source-29.</p>
+<h2>Creation and scope</h2>
+<p>Only an authorized workspace administrator may create an API key. Choose the minimum operation scopes and record a human owner, application purpose, and expiry. Production keys expire after at most 90 calendar days. Sandbox keys expire after at most 30 calendar days.</p>
+<h2>Planned rotation</h2>
+<p>Create a replacement with the same necessary scopes, deploy it through the approved secret store, verify successful requests, and revoke the old key. Planned overlap may last at most 24 hours. Never paste a full key into support tickets or source control; use its key ID for investigation.</p>
+<h2>Compromise</h2>
+<p>Suspected exposure requires immediate reporting under source-22 and prompt revocation under Security coordination. The normal 24-hour overlap is not a guaranteed grace period after compromise. Revocation blocks future requests but does not undo past operations.</p>
+<h2>Quotas and boundaries</h2>
+<p>Nimbus operation quotas apply per key under source-05; creating additional keys to evade plan limits is prohibited. A rotated key&#x27;s first request can still fail for missing scope or wrong environment. This procedure contains no usable keys and does not define account-wide commercial limits.</p>
+<p>Related document: operational-record.md supplements this source; read its record type and effective period before applying it.</p>
+<p>Original synthetic workshop content. Nimbus Labs and all people, services, incidents, and rules described here are fictional. This is not legal, medical, or security advice.</p></main>
+<footer>Nimbus intranet | Policies | Directory | Search</footer></body></html>

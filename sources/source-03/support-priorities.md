@@ -1,7 +1,9 @@
-# Harbor support priorities
+# Nimbus Core support priorities
 
 Version: 2026.1. Effective date: 2026-03-01. Owner: Customer Support.
 Access scope: workshop-public.
+
+Applicability: Nimbus Core self-service subscriptions only. Nimbus Managed Services uses ../source-06/current-policy.pdf; these are separate offerings.
 
 | Severity | Description | Target initial response |
 |---|---|---|
@@ -12,4 +14,4 @@ Access scope: workshop-public.
 A response target is not a resolution guarantee. Escalate an unacknowledged P1
 to the on-call support lead after 15 minutes. This policy does not specify uptime credits.
 
-Original synthetic workshop content. Harbor is fictional.
+Original synthetic workshop content. Nimbus Labs is fictional.

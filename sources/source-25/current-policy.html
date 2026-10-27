@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Nimbus service objectives and error budgets</title><style>body{font:16px/1.6 Arial,sans-serif;max-width:900px;margin:36px auto;padding:0 24px;color:#173b50}nav,footer{padding:12px;background:#edf3f5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #b8cbd0;padding:9px;text-align:left;vertical-align:top}h2{color:#176b74}</style></head><body>
+<nav>Nimbus intranet | Policies | Directory | Search</nav>
+<main><h1>Nimbus service objectives and error budgets</h1>
+<p>Version: 2026.2. Effective date: 2026-09-01. Owner: Site Reliability Engineering.</p>
+<p>Access scope: workshop-public. Supersedes previous-policy.md.</p>
+<h2>Applicability</h2>
+<p>Nimbus Core order-read API availability; Managed Services exports have separate objectives not specified here.</p>
+<h2>Objective and measurement</h2>
+<p>The order-read API has a 99.9% monthly successful-request objective. Eligible requests are production GET /v2/orders requests reaching the Nimbus edge. Successful requests are HTTP 2xx and 3xx. Exclude client-caused 4xx; count server-caused 429 and 5xx as failures. Planned maintenance is included.</p>
+<h2>Budget calculation</h2>
+<p>Allowed failed requests = eligible requests x 0.001. Consumed budget = failed requests / allowed failed requests. Preserve raw counts and round only displayed percentages. With zero eligible requests, report the budget as undefined rather than claiming perfect availability.</p>
+<h2>Operational action</h2>
+<p>If more than 75% of the monthly budget is consumed, the service owner reviews planned feature releases with SRE. At 100%, pause non-reliability releases unless the engineering director grants a documented exception. A single alert does not itself change the measured budget.</p>
+<h2>Contract boundary</h2>
+<p>This internal objective is not a customer service-level agreement or automatic refund promise. Contractual credits require their own agreement and source-26. Source-05 defines API quotas; quota entitlement and availability measurement answer different questions.</p>
+<p>Related document: operational-record.md supplements this source; read its record type and effective period before applying it.</p>
+<p>Original synthetic workshop content. Nimbus Labs and all people, services, incidents, and rules described here are fictional. This is not legal, medical, or security advice.</p></main>
+<footer>Nimbus intranet | Policies | Directory | Search</footer></body></html>

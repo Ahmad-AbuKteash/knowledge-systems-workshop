@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Nimbus release gates and emergency changes</title><style>body{font:16px/1.6 Arial,sans-serif;max-width:900px;margin:36px auto;padding:0 24px;color:#173b50}nav,footer{padding:12px;background:#edf3f5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #b8cbd0;padding:9px;text-align:left;vertical-align:top}h2{color:#176b74}</style></head><body>
+<nav>Nimbus intranet | Policies | Directory | Search</nav>
+<main><h1>Nimbus release gates and emergency changes</h1>
+<p>Version: 2026.2. Effective date: 2026-09-01. Owner: Release Engineering.</p>
+<p>Access scope: workshop-public. Supersedes previous-policy.md.</p>
+<h2>Applicability</h2>
+<p>Nimbus production application releases; database migrations have additional gates in source-28.</p>
+<h2>Standard release</h2>
+<p>Every production release needs a tracked change, passing automated checks, review by an engineer other than the author, and a rollback or roll-forward plan. The service owner approves the release window. Deploy from a versioned artifact; rebuilding an unrecorded local working tree is not permitted.</p>
+<h2>Rollout</h2>
+<p>Start with a 10% canary for at least 15 minutes. Continue only if the change&#x27;s declared error and latency checks pass. The default abort threshold is a five-minute error rate above 2% or p95 latency above twice the previous 30-minute baseline. Record the actual baseline and observed metrics.</p>
+<h2>Emergency route</h2>
+<p>For an active SEV1, the incident commander may shorten the canary after an independent review and service-owner approval. Document why and review the change by the next business day. Emergency status does not waive artifact tracking or access controls.</p>
+<h2>Completion</h2>
+<p>Attach deployment timestamps, artifact ID, gate results, and outcome to the change. A green build is necessary but does not prove production recovery. This policy does not define service-specific SLOs; see source-25.</p>
+<p>Related document: operational-record.md supplements this source; read its record type and effective period before applying it.</p>
+<p>Original synthetic workshop content. Nimbus Labs and all people, services, incidents, and rules described here are fictional. This is not legal, medical, or security advice.</p></main>
+<footer>Nimbus intranet | Policies | Directory | Search</footer></body></html>

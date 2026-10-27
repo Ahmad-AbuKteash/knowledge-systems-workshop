@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Nimbus sandbox environments and test data</title><style>body{font:16px/1.6 Arial,sans-serif;max-width:900px;margin:36px auto;padding:0 24px;color:#173b50}nav,footer{padding:12px;background:#edf3f5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #b8cbd0;padding:9px;text-align:left;vertical-align:top}h2{color:#176b74}</style></head><body>
+<nav>Nimbus intranet | Policies | Directory | Search</nav>
+<main><h1>Nimbus sandbox environments and test data</h1>
+<p>Version: 2026.2. Effective date: 2026-09-01. Owner: Developer Experience.</p>
+<p>Access scope: workshop-public. Supersedes previous-policy.md.</p>
+<h2>Applicability</h2>
+<p>Nimbus customer sandbox workspaces; production customer data is not approved sandbox test data.</p>
+<h2>Environment separation</h2>
+<p>Sandbox and production use separate keys, workspace IDs, and webhook endpoints. Sandbox orders never initiate real payment settlement. Responses include environment=sandbox. Applications must explicitly choose environment rather than infer it from an order ID.</p>
+<h2>Test-data lifecycle</h2>
+<p>Sandbox workspaces reset every Sunday at 02:00 UTC. Reset removes test orders and generated export files; workspace settings and registered webhook endpoints remain. Administrators may request one reset deferral per calendar quarter, approved before Friday 16:00 UTC.</p>
+<h2>Limits and fixture design</h2>
+<p>Sandbox keys have the ten-requests-per-minute per-operation cap in source-05, regardless of plan. Use synthetic names and reserved .invalid email addresses. Do not copy production customer records into a sandbox. Fault fixtures can simulate a timeout or duplicate event without proving a production defect.</p>
+<h2>Boundaries</h2>
+<p>Sandbox behavior is suitable for integration rehearsal but does not establish production uptime or payment settlement timing. API key expiry follows source-30. A reset deferral preserves test records only until the next scheduled reset unless a separate approved notice states otherwise.</p>
+<p>Related document: operational-record.md supplements this source; read its record type and effective period before applying it.</p>
+<p>Original synthetic workshop content. Nimbus Labs and all people, services, incidents, and rules described here are fictional. This is not legal, medical, or security advice.</p></main>
+<footer>Nimbus intranet | Policies | Directory | Search</footer></body></html>

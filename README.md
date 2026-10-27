@@ -61,15 +61,22 @@ and prompt files are thin adapters; procedures are maintained only in steps/.
 
 ## Sources and participant work
 
-Sources contain input files only—no source READMEs. Three original synthetic
-sample collections are included for rehearsal and can be replaced or extended
-with approved inputs before delivery:
+Sources contain input files only - no source READMEs. The collection contains
+**40 fictional Nimbus source collections and 120 input documents**. Assign one
+collection per participant or pair. See the [Nimbus source catalog](SOURCE_CATALOG.md)
+for the full topic list, formats, ownership, and document boundaries.
 
-| Folder | Topic | Intentional challenges |
-|---|---|---|
-| sources/source-01 | Employee policies | Historical/current policy, HTML navigation, leave table |
-| sources/source-02 | API documentation | Changed rate limit, exact identifiers, retry conditions |
-| sources/source-03 | Customer support | Changed refund window, exceptions, response targets |
+Sources 01-03 provide HTML and Markdown inputs. Sources 04-06 each contain a
+current-policy PDF, historical-policy HTML, and a PNG supplemental notice with
+distinct content. Sources 07-40 expand Nimbus across people, finance, engineering,
+security, customer operations, governance, and workplace topics. Each includes a
+current policy or guide, a historical excerpt, and a supplemental operational
+record. Formats include HTML, Markdown, PDF, and PNG across the collection.
+
+Use an image-capable agent for PNG notices and a PDF reader for PDFs. No separate
+OCR installation is required when the agent can read the images. If it cannot,
+report the limitation before the lab. Preserve versions, exceptions, applicability,
+and temporary notice periods when preparing the material for retrieval.
 
 These are fictional teaching documents, not public company policies. Participants
 work in their own clone; local workspace/ is ignored by Git. Do not modify sources/.
