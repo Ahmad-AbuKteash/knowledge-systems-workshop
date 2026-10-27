@@ -76,7 +76,8 @@ work in their own clone; local workspace/ is ignored by Git. Do not modify sourc
 
 After all steps, export reviewed results to the tracked `submissions/<source>/`
 folder and commit only that source's submission. Follow [CONTRIBUTING.md](CONTRIBUTING.md)
-for branches, export, commit, push, and instructor collection.
+for export, commit, direct push to the shared workshop branch, and instructor pull.
+No pull request or PR review is required.
 
 ```text
 workspace/source-01/

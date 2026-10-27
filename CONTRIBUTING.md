@@ -5,8 +5,8 @@ You do not need the private application repository, Java, Node, or Docker.
 
 1. Clone the workshop repository using the URL and workshop branch supplied by the trainer:
    `git clone --branch <workshop-branch> <workshop-repository-url>`.
-2. Open the cloned folder, follow PREPARATION.md, and create your branch:
-   `git switch -c participant/<your-name>-source-01`.
+2. Open the cloned folder and follow PREPARATION.md. Stay on the shared workshop
+   branch; everyone contributes directly to that branch.
 3. Complete the eleven manual steps for your assigned source. Inspect the outputs
    and retrieval review with the trainer. Do not run later steps automatically.
 4. Export the completed result. This validates existing artifacts; it does not
@@ -25,24 +25,34 @@ You do not need the private application repository, Java, Node, or Docker.
    git add submissions/source-01
    git diff --cached --stat
    git commit -m "Submit source-01 knowledge"
-   git push -u origin HEAD
+   git pull --rebase
+   git push
    ```
 
-7. Open a pull request against the trainer's workshop branch. If you have no push
-   access, agree on a fork or patch handoff with the trainer. A local commit alone
-   does not transfer your contribution to the instructor's computer.
+7. Tell the trainer your source is pushed. There is no pull request or PR review.
+   A local commit alone does not transfer it to the instructor's computer.
 
-Replace source-01 and the branch placeholders with your own assignment. Work in
-separate participant branches; do not push everyone's changes directly to one branch.
+Replace source-01 and the branch placeholders with your own assignment. Each
+participant owns a different source folder to avoid overlapping edits. If another
+participant pushes first and Git rejects your push, run `git pull --rebase` and
+`git push` again. Never force-push. If a conflict occurs, ask the trainer to resolve
+the source assignment rather than overwriting someone else's work.
 Keep `.env`, `.venv`, and `workspace/` local. Do not force-add them.
 
 ## Instructor collection
 
-Review and merge each participant PR into the workshop branch, then pull that
-branch into `knowledge-systems-workshop/` on the demo computer. The app mounts
+Before the workshop, give participants repository write access and use a dedicated
+workshop branch that permits direct pushes without requiring PRs. Keep normal
+protections on other branches. Assign a unique source folder to each participant.
+
+On the demo computer, check out that same workshop branch in
+`knowledge-systems-workshop/`, then run `git pull --ff-only`. The app mounts
 `submissions/` read-only and reloads it for each tool call. Refresh the source list
 in the chat. No merged SQLite database or re-embedding is needed: the MCP service
-searches the exported vectors across reviewed bundles and preserves source IDs.
+searches the exported vectors across submitted bundles and preserves source IDs.
+
+The workflow is: **participant commit + push → instructor pull → Studio Refresh**.
+The retrieval review file is a learning artifact from the lab, not a GitHub approval.
 
 The app accepts schema version 1, text-embedding-3-small at 512 dimensions, up to
 500 chunks per source and 100 sources. Historical documents remain searchable;
