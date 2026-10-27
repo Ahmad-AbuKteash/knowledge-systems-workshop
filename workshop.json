@@ -1,0 +1,21 @@
+{
+  "embedding_model": "text-embedding-3-small",
+  "embedding_dimensions": 512,
+  "embedding_batch_size": 16,
+  "top_k": 5,
+  "max_chunk_characters": 2000,
+  "max_chunks_per_source": 500,
+  "commands": [
+    {"name": "collect", "guide": "steps/01-prepare-knowledge/01-collect.md"},
+    {"name": "extract", "guide": "steps/01-prepare-knowledge/02-extract.md"},
+    {"name": "clean", "guide": "steps/01-prepare-knowledge/03-clean.md"},
+    {"name": "structure", "guide": "steps/01-prepare-knowledge/04-structure.md"},
+    {"name": "enrich", "guide": "steps/01-prepare-knowledge/05-enrich.md"},
+    {"name": "validate", "guide": "steps/01-prepare-knowledge/06-validate.md"},
+    {"name": "chunk", "guide": "steps/02-build-retrieval-index/01-chunk.md"},
+    {"name": "carry-metadata", "guide": "steps/02-build-retrieval-index/02-carry-metadata.md"},
+    {"name": "embed", "guide": "steps/02-build-retrieval-index/03-generate-embeddings.md"},
+    {"name": "index", "guide": "steps/02-build-retrieval-index/04-store-and-index.md"},
+    {"name": "test-retrieval", "guide": "steps/02-build-retrieval-index/05-test-retrieval.md"}
+  ]
+}
