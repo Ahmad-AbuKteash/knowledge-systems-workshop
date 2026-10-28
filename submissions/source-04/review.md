@@ -1,75 +1,114 @@
 # source-04 retrieval review
 
-Agent-reviewed real retrieval tests; participant inspection remains separate. All answers below were generated solely from each question’s saved returned passages. No full originals or cross-source notes were consulted to supplement answers. Queries used text-embedding-3-small at 512 dimensions; actual query token usage: 19, 30, 15 (64 total). No extra chat-model API call. Configured top_k=5, but this corpus contains only 3 passages, so each search returns all 3. Scores are cosine similarities, not confidence probabilities.
+Source: Nimbus travel expenses (synthetic). Index: `workspace/source-04/index/knowledge.sqlite3`,
+6 chunks, `text-embedding-3-small`, 512 dimensions, exact cosine, top_k = 5.
+Each query was embedded by a real OpenAI API call (12–17 tokens per query, 69 total).
+Scores are cosine similarities, not confidence probabilities. Similarity always returns
+five candidates, even when none answers the question.
 
-## Question 1
+Chunk key: `doc-01` = current-policy.pdf v2026.2 (effective 2026-09-01, supersedes doc-03);
+`doc-02` = operational-notice.png v1.0 (effective 2026-09-01, supplements doc-01);
+`doc-03` = previous-policy.html v2025.1 (historical, superseded_by doc-01).
 
-On an overseas work trip, is the food allowance for each meal or for the entire day?
+## q1 — What is the current international daily meal cap for Nimbus employee travel?
 
-Saved evidence: search-2294457211ca.json
+Evidence: `search-da9518d0ca10.json` · expected answerable: yes
 
-| Rank | Chunk | Version | Effective | Cosine | Relevance and support |
-| --- | --- | --- | --- | --- | --- |
-| 1 | source-04/operational-notice.png:0-626 | 1.0 | 2026-09-01 | 0.54643894 | Supports USD 85 combined daily cap, not per meal; exception does not increase cap. |
-| 2 | source-04/previous-policy.html:0-590 | 2025.1 | 2025-01-01 | 0.47115785 | Historical 2025.1; does not govern transactions after 2026-09-01. |
-| 3 | source-04/current-policy.pdf:0-1143 | 2026.2 | 2026-09-01 | 0.45724204 | Supports current table, signed-declaration receipt exception and exclusions. |
+| Rank | Chunk | Cosine | Version | Relevance / support |
+|---|---|---|---|---|
+| 1 | `source-04-doc-03:0-500:a83cb033` | 0.7273 | 2025.1 | Relevant topic, **does not support** the current cap: "Historical policy. Superseded on 2026-09-01" — USD 60 is outdated |
+| 2 | `source-04-doc-01:0-342:2eefb76a` | 0.7100 | 2026.2 | **Supports**: table row "Meals \| USD 45 \| USD 85" under "International / day", effective 2026-09-01 |
+| 3 | `source-04-doc-02:0-534:33cd7151` | 0.5696 | 1.0 | Supports and clarifies: USD 85 covers all meals in one calendar day |
+| 4 | `source-04-doc-01:344-550:42a72324` | 0.5327 | 2026.2 | Related (receipts), not about the cap |
+| 5 | `source-04-doc-01:552-694:1c2a6a8b` | 0.5270 | 2026.2 | Related (min of expense and cap), not the amount |
 
-Planned paraphrase target: source-04/operational-notice.png:0-626. Actual result: rank 1, cosine 0.5464389387012049. Target found. Different wording matched the intended meaning. This is a single planned test, not a measured improvement over a baseline.
+**Finding:** the outdated policy ranked first. Similarity cannot tell versions apart (the two
+caps chunks are 0.904 similar to each other). A correct answer depends on the version and
+supersession text carried inside the chunk and its metadata. Missing information: none.
 
-Retrieved evidence:
+## q2 — Is the international meal cap applied per meal or per calendar day?
 
-> Effective 2026-09-01. Finance Operations confirms that the international USD 85 meal cap in current-policy.pdf covers all eligible meals combined in one calendar day. It is not a per-meal cap. The USD 20 lost-receipt exception does not increase the daily cap.
+Evidence: `search-819cbf491209.json` · expected answerable: yes
 
-Answer: Effective 2026-09-01, the international USD 85 cap covers all eligible meals combined in one calendar day, not each meal. The USD 20 lost-receipt exception does not add to that cap. [`source-04/operational-notice.png:0-626` — `sources/source-04/operational-notice.png`, version 1.0, effective 2026-09-01]
+| Rank | Chunk | Cosine | Version | Relevance / support |
+|---|---|---|---|---|
+| 1 | `source-04-doc-02:0-534:33cd7151` | 0.6169 | 1.0 | **Supports**: "covers all eligible meals combined in one calendar day. It is not a per-meal cap." |
+| 2 | `source-04-doc-01:552-694:1c2a6a8b` | 0.5522 | 2026.2 | Partial: "applicable daily cap" implies per day, not explicit |
+| 3 | `source-04-doc-03:0-500:a83cb033` | 0.5013 | 2025.1 | Historical; "daily meal cap" wording, not current |
+| 4 | `source-04-doc-01:344-550:42a72324` | 0.4978 | 2026.2 | Not relevant to per-meal vs per-day |
+| 5 | `source-04-doc-01:0-342:2eefb76a` | 0.4169 | 2026.2 | Partial: column header "International / day" |
 
-Citation/claim check: amount USD 85, combined-calendar-day unit, per-meal negative, effective date and no-increase condition all appear in the quoted returned notice. Notice is supplemental, not a replacement for the full policy.
-## Question 2
+**Finding:** the PNG-only clarification ranked first, so the image transcription in extract was
+essential. Notice effective 2026-09-01 (published 2026-10-01). Missing information: none.
 
-For travel on 2026-10-10, what is the international daily meal cap, and what can I do if I lose a receipt?
+## q3 — What can an employee do if they lose a meal receipt?
 
-Saved evidence: search-231421762f1d.json
+Evidence: `search-a88f0b82824f.json` · expected answerable: yes
 
-| Rank | Chunk | Version | Effective | Cosine | Relevance and support |
-| --- | --- | --- | --- | --- | --- |
-| 1 | source-04/previous-policy.html:0-590 | 2025.1 | 2025-01-01 | 0.59033473 | Historical 2025.1; does not govern transactions after 2026-09-01. |
-| 2 | source-04/operational-notice.png:0-626 | 1.0 | 2026-09-01 | 0.56180222 | Supports USD 85 combined daily cap, not per meal; exception does not increase cap. |
-| 3 | source-04/current-policy.pdf:0-1143 | 2026.2 | 2026-09-01 | 0.52307651 | Supports current table, signed-declaration receipt exception and exclusions. |
+| Rank | Chunk | Cosine | Version | Relevance / support |
+|---|---|---|---|---|
+| 1 | `source-04-doc-01:344-550:42a72324` | 0.5762 | 2026.2 | **Supports**: "a lost receipt may be replaced by a signed declaration for one meal costing no more than USD 20 per trip" |
+| 2 | `source-04-doc-02:0-534:33cd7151` | 0.4823 | 1.0 | Supports a limit: "The USD 20 lost-receipt exception does not increase the daily cap" |
+| 3 | `source-04-doc-01:552-694:1c2a6a8b` | 0.4349 | 2026.2 | Not relevant |
+| 4 | `source-04-doc-03:0-500:a83cb033` | 0.3712 | 2025.1 | Historical: "no lost-receipt exception" — outdated, must not be used |
+| 5 | `source-04-doc-01:696-1045:ab28b387` | 0.3578 | 2026.2 | Not relevant |
 
-Retrieved excerpts:
+**Finding:** the rule and its exception stayed in one chunk, so the conditions (one meal,
+USD 20, per trip) arrived together. Missing information: none.
 
-> Version: 2026.2. Effective: 2026-09-01. Supersedes previous-policy.html.
-> | Meals | USD 45 | USD 85 |
-> Meals require itemized receipts. Exception: a lost receipt may be replaced by a signed declaration for one meal costing no more than USD 20 per trip. Alcohol is excluded in all cases.
+## q4 — How many days after a trip ends must an expense claim be submitted?
 
-The table headers in the returned policy are Category, Domestic / day, International / day.
+Evidence: `search-deccf88abbbe.json` · expected answerable: yes
 
-Answer: For 2026-10-10 travel, the international meal cap is USD 85 per day. Itemized receipts are required, but a signed declaration can replace a lost receipt for one meal costing no more than USD 20 per trip. Alcohol is excluded. [`source-04/current-policy.pdf:0-1143` — `sources/source-04/current-policy.pdf`, version 2026.2, effective 2026-09-01] The cap covers all eligible meals combined in one calendar day; the receipt exception does not increase it. [`source-04/operational-notice.png:0-626` — `sources/source-04/operational-notice.png`, version 1.0, effective 2026-09-01] The historical USD 60 rule does not apply after 2026-09-01. [`source-04/previous-policy.html:0-590` — `sources/source-04/previous-policy.html`, version 2025.1, effective 2025-01-01]
+| Rank | Chunk | Cosine | Version | Relevance / support |
+|---|---|---|---|---|
+| 1 | `source-04-doc-01:696-1045:ab28b387` | 0.6300 | 2026.2 | **Supports**: "Submit within 30 calendar days after the trip ends. Late claims require Finance approval." |
+| 2–5 | doc-03, doc-01 (Calculation, Limits, Rule) | 0.41–0.38 | — | Not relevant to the deadline |
 
-Claim/citation mapping: USD 85 and daily/international labels → current policy table; signed declaration, one meal, USD 20, per trip and alcohol exclusion → current policy Rule and exception; applicable 2026-10-10 → current effective date plus historical supersession; combined daily cap and no increase → notice main paragraph; exclusion of USD 60 → historical applicability. All cited IDs exist in this question’s results and quotations match returned text.
+**Finding:** clear winner with a large score gap (0.63 vs 0.41). Missing information: none.
 
-Observed ranking limitation: the inapplicable historical policy ranked first (0.5903347295608331), above notice and current policy. Retrieval succeeded in returning useful evidence, but rank 1 alone would be unsafe for applicability. The answer checks dates/scope instead of using the most similar amount.
-## Question 3
+## q5 — What is the per-kilometre mileage reimbursement rate for using a personal car? (unsupported)
 
-What mileage reimbursement rate per kilometer applies when I drive my personal car?
+Evidence: `search-aad5adbb51ce.json` · expected answerable: **no**
 
-Saved evidence: search-82e7f9d6c5ec.json
+| Rank | Chunk | Cosine | Version | Relevance / support |
+|---|---|---|---|---|
+| 1 | `source-04-doc-01:552-694:1c2a6a8b` | 0.4139 | 2026.2 | Does not support: generic reimbursement formula |
+| 2 | `source-04-doc-01:696-1045:ab28b387` | 0.4120 | 2026.2 | Does not support |
+| 3 | `source-04-doc-01:0-342:2eefb76a` | 0.3898 | 2026.2 | Does not support: "Ground transport USD 35 / USD 55" is a daily cap, not a per-km rate |
+| 4 | `source-04-doc-03:0-500:a83cb033` | 0.3772 | 2025.1 | Does not support |
+| 5 | `source-04-doc-01:344-550:42a72324` | 0.3303 | 2026.2 | Does not support |
 
-| Rank | Chunk | Version | Effective | Cosine | Relevance and support |
-| --- | --- | --- | --- | --- | --- |
-| 1 | source-04/current-policy.pdf:0-1143 | 2026.2 | 2026-09-01 | 0.36670541 | Daily ground-transport caps, no per-kilometer rate. |
-| 2 | source-04/previous-policy.html:0-590 | 2025.1 | 2025-01-01 | 0.32775601 | Historical meals/hotel terms, no mileage rate. |
-| 3 | source-04/operational-notice.png:0-626 | 1.0 | 2026-09-01 | 0.27873657 | Meal clarification only; no mileage rate. |
+**Finding:** five passages were still returned, all with low, flat scores (0.33–0.41). None
+mentions mileage, kilometres or personal cars. **Correct outcome: abstain.** Risk: the
+ground-transport cap is a tempting but wrong substitute. Missing information: a mileage rate.
 
-Returned candidate evidence: current-policy.pdf gives Ground transport USD 35 domestic / day and USD 55 international / day; previous-policy.html discusses historical meals/hotels; operational-notice.png discusses meals. None contains a personal-car distance rate.
+## Summary
 
-Answer: Insufficient evidence. The retrieved passages do not state a personal-car mileage reimbursement rate per kilometer. The daily ground-transport caps do not establish that rate. No numerical mileage rate can be answered from this result set.
+| Question | Expected | Top-1 useful? | Supporting chunk retrieved | Outcome |
+|---|---|---|---|---|
+| q1 | answerable | No — historical first | Yes, rank 2 (+ rank 3) | Answerable using version metadata |
+| q2 | answerable | Yes | Yes, rank 1 | Answerable |
+| q3 | answerable | Yes | Yes, rank 1 (+ rank 2) | Answerable |
+| q4 | answerable | Yes | Yes, rank 1 | Answerable |
+| q5 | unsupported | n/a | No support | Abstain (correct) |
 
-Abstention check: all three complete returned passages were inspected; no distance-rate rule is present. Correct abstention is a successful unsupported-case outcome. No citation is fabricated to support a rate.
+## Cited answer demonstration (q1, using only the passages returned for q1)
 
-## Quality decision and remaining limits
+**Question:** What is the current international daily meal cap for Nimbus employee travel?
 
-Did we retrieve the right evidence, and did the answer stay within it? The paraphrase target was rank 1. Applicable evidence was returned for the dated question, but historical content outranked it. All demonstrated factual claims map to the same query’s returned text and retain dates, units, exceptions and scope. The unsupported question correctly abstains.
+**Answer:** The current international meal cap is **USD 85 per day**
+[`source-04-doc-01:0-342:2eefb76a`, current-policy.pdf v2026.2: "| Meals | USD 45 | USD 85 |"
+under "International / day"; "Version: 2026.2. Effective: 2026-09-01."]. It covers all
+eligible meals combined in one calendar day, not each meal
+[`source-04-doc-02:0-534:33cd7151`, operational-notice.png v1.0: "covers all eligible meals
+combined in one calendar day. It is not a per-meal cap."]. The USD 60 figure in the top-ranked
+passage is outdated and was not used: that document states "Historical policy. Superseded on
+2026-09-01 by current-policy.pdf." [`source-04-doc-03:0-500:a83cb033`, previous-policy.html v2025.1].
 
-Retrieval success: useful passages present for both supported questions. Answer faithfulness: supported claims checked and unsupported rate withheld. Observed failure/limitation: historical passage rank 1 for a current-date query. No automatic date filtering is implemented. With 3 documents and top_k 5, these tests do not assess recall in a larger corpus, production robustness or general accuracy. No baseline or performance improvement was measured.
+Citations verified: each quoted string appears in the text of the cited chunk as returned in
+`search-da9518d0ca10.json`. No full source file was read to supplement the answer.
 
-Participant inspection: compare a cited answer to its returned text; verify 2026.2/2026-09-01 applicability rather than rank 1 historical terms; inspect the mileage result and insufficient-evidence response.
+**Abstention demonstration (q5):** The retrieved passages do not state a per-kilometre mileage
+rate, so no answer is given. The ground-transport daily caps (USD 35 domestic / USD 55
+international) are not a mileage rate.
