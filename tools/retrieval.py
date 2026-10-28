@@ -55,6 +55,9 @@ def load_records(work, source, config):
     if validation.get("passed") is not True or validation.get("documents_sha256") != sha(documents_path):
         raise ValueError("Knowledge validation is missing, failed, or stale. Run validate.")
     documents = read_json(documents_path)
+    # Prepared knowledge is a dict with a "documents" list (see enrich.py); a bare list is also accepted.
+    if isinstance(documents, dict):
+        documents = documents.get("documents")
     if not isinstance(documents, list):
         raise ValueError("documents.json must contain a list.")
     by_id = {doc["document_id"]: doc for doc in documents}
